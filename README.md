@@ -14,6 +14,8 @@ yarn dev
 pnpm dev
 # or
 bun dev
+##### If want to run java for test please cd to src/java
+# Example  use command for test result for JAVA -->  java exampg.Questions08
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
