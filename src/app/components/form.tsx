@@ -6,6 +6,7 @@ import {
   Button,
   Typography,
   FormControl,
+  Grid,
 } from "@mui/material";
 import { User } from "../page"; // adjust the import path if needed
 
@@ -113,83 +114,104 @@ const FormComponent: React.FC<FormComponentProps> = ({
     <Box
       component="form"
       onSubmit={handleSubmit}
-      sx={{ p: 2, maxWidth: 400, mx: "auto" }}
+      sx={{ p: 2, maxWidth: 450, mx: "auto" }}
     >
-      <Typography variant="h6" gutterBottom>
-        User Form
-      </Typography>
+      <Box sx={{ display: "flex", justifyContent: "center", mb: 2 }}>
+        <Typography variant="h6" gutterBottom>
+          User Form
+        </Typography>
+      </Box>
 
       <FormControl fullWidth size="small">
-        <TextField
-          label="First Name"
-          name="firstname"
-          value={formData.firstname}
-          onChange={handleChange}
-          error={!!validationErrors.firstname}
-          helperText={validationErrors.firstname?.msg}
-          margin="dense"
-        />
-        <TextField
-          label="Last Name"
-          name="lastname"
-          value={formData.lastname}
-          onChange={handleChange}
-          error={!!validationErrors.lastname}
-          helperText={validationErrors.lastname?.msg}
-          margin="dense"
-        />
-        <TextField
-          select
-          label="Gender"
-          name="gender"
-          value={formData.gender}
-          onChange={handleChange}
-          error={!!validationErrors.gender}
-          helperText={validationErrors.gender?.msg}
-          margin="dense"
-        >
-          <MenuItem aria-label="None" value="" sx={{ height: 30 }} />
-          {/* <MenuItem value="M">Male</MenuItem> */}
-
-          <MenuItem value="M">Male</MenuItem>
-          <MenuItem value="F">Female</MenuItem>
-          <MenuItem value="U">Unknown</MenuItem>
-        </TextField>
+        <Grid container spacing={3}>
+          <Grid size={6}>
+            <TextField
+              label="First Name"
+              name="firstname"
+              value={formData.firstname}
+              onChange={handleChange}
+              error={!!validationErrors.firstname}
+              helperText={validationErrors.firstname?.msg}
+              margin="dense"
+              size="small"
+            />
+          </Grid>
+          <Grid size={6}>
+            <TextField
+              label="Last Name"
+              name="lastname"
+              value={formData.lastname}
+              onChange={handleChange}
+              error={!!validationErrors.lastname}
+              helperText={validationErrors.lastname?.msg}
+              margin="dense"
+              size="small"
+            />
+          </Grid>
+        </Grid>
+        <Grid container spacing={3}>
+          <Grid size={6}>
+            <TextField
+              select
+              label="Gender"
+              name="gender"
+              value={formData.gender}
+              onChange={handleChange}
+              error={!!validationErrors.gender}
+              helperText={validationErrors.gender?.msg}
+              margin="dense"
+              sx={{ width: "100%" }}
+              size="small"
+            >
+              <MenuItem aria-label="None" value="" sx={{ height: 30 }} />
+              <MenuItem value="M">Male</MenuItem>
+              <MenuItem value="F">Female</MenuItem>
+              <MenuItem value="U">Unknown</MenuItem>
+            </TextField>
+          </Grid>
+          <Grid size={6}>
+            <TextField
+              label="Score"
+              name="score"
+              type="number"
+              value={formData.score}
+              onChange={handleChange}
+              error={!!validationErrors.score}
+              helperText={validationErrors.score?.msg}
+              fullWidth
+              size="small"
+              margin="dense"
+            />
+          </Grid>
+        </Grid>
       </FormControl>
 
-      <TextField
-        label="Score"
-        name="score"
-        type="number"
-        value={formData.score}
-        onChange={handleChange}
-        error={!!validationErrors.score}
-        helperText={validationErrors.score?.msg}
-        fullWidth
-        size="small"
-        margin="dense"
-      />
-
-      <Button type="submit" variant="contained" fullWidth sx={{ mt: 2 }}>
-        {formData.id ? "Edit" : "Add"}
-      </Button>
-      <Button
-        variant="outlined"
-        fullWidth
-        sx={{ mt: 2 }}
-        onClick={() => {
-          setFormData({
-            id: null,
-            firstname: "",
-            lastname: "",
-            gender: "",
-            score: "",
-          });
-          setValidationErrors({});
-        }}
-      >
-        Cancel
-      </Button>
+      <Grid container spacing={3}>
+        <Grid size={6}>
+          <Button type="submit" variant="contained" fullWidth sx={{ mt: 2 }}>
+            {formData.id ? "Edit" : "Add"}
+          </Button>
+        </Grid>
+        <Grid size={6}>
+          <Button
+            variant="outlined"
+            fullWidth
+            sx={{ mt: 2 }}
+            onClick={() => {
+              setFormData({
+                id: null,
+                firstname: "",
+                lastname: "",
+                gender: "",
+                score: "",
+              });
+              setValidationErrors({});
+            }}
+          >
+            Cancel
+          </Button>
+        </Grid>
+      </Grid>
     </Box>
   );
 };

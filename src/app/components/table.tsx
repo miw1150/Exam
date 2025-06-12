@@ -2,15 +2,17 @@ import * as React from "react";
 import {
   Table,
   TableBody,
-  TableCell,
   TableContainer,
   TableHead,
-  TableRow,
   Paper,
   Button,
   Tooltip,
+  styled,
+  TableRow,
 } from "@mui/material";
-interface TableRowData {
+import TableCell, { tableCellClasses } from "@mui/material/TableCell";
+
+interface StyledTableRowData {
   id: number;
   firstname: string;
   lastname: string;
@@ -19,9 +21,34 @@ interface TableRowData {
 }
 import EditIcon from "@mui/icons-material/Edit";
 interface TableComponentProps {
-  data: TableRowData[];
-  onEdit: (row: TableRowData) => void;
+  data: StyledTableRowData[];
+  onEdit: (row: StyledTableRowData) => void;
 }
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+  },
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  "&:nth-of-type(odd)": {
+    backgroundColor: theme.palette.action.hover,
+  },
+  // hide last border
+  "&:last-child td, &:last-child th": {
+    border: 0,
+  },
+  "&:hover": {
+    backgroundColor: "#abe7ff",
+    transition: "background-color 0.3s ease",
+    cursor: "pointer",
+  },
+}));
 
 const TableComponent = ({ data, onEdit }: TableComponentProps) => {
   const formatTooltip = (text: string) => {
@@ -31,37 +58,37 @@ const TableComponent = ({ data, onEdit }: TableComponentProps) => {
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }}>
         <TableHead>
-          <TableRow>
-            <TableCell>No.</TableCell>
-            <TableCell align="right">Action</TableCell>
-            <TableCell align="right">First name</TableCell>
-            <TableCell align="right">Last name</TableCell>
-            <TableCell align="right">Gender</TableCell>
-            <TableCell align="right">Score</TableCell>
-          </TableRow>
+          <StyledTableRow>
+            <StyledTableCell>No.</StyledTableCell>
+            <StyledTableCell align="right">Action</StyledTableCell>
+            <StyledTableCell align="right">First name</StyledTableCell>
+            <StyledTableCell align="right">Last name</StyledTableCell>
+            <StyledTableCell align="right">Gender</StyledTableCell>
+            <StyledTableCell align="right">Score</StyledTableCell>
+          </StyledTableRow>
         </TableHead>
         <TableBody>
           {data.map((row) => (
-            <TableRow key={row.id} hover>
-              <TableCell>{row.id}</TableCell>
-              <TableCell align="right">
+            <StyledTableRow key={row.id}>
+              <StyledTableCell>{row.id}</StyledTableCell>
+              <StyledTableCell align="right">
                 <Button onClick={() => onEdit(row)} size="small">
                   <EditIcon sx={{ color: "black" }} />
                 </Button>
-              </TableCell>
-              <TableCell align="right">{row.firstname}</TableCell>
-              <TableCell align="right">{row.lastname}</TableCell>
+              </StyledTableCell>
+              <StyledTableCell align="right">{row.firstname}</StyledTableCell>
+              <StyledTableCell align="right">{row.lastname}</StyledTableCell>
 
-              <TableCell align="right">
+              <StyledTableCell align="right">
                 <Tooltip placement="bottom" title={formatTooltip(row.gender)}>
                   <span>{row.gender}</span>
                 </Tooltip>
-              </TableCell>
+              </StyledTableCell>
 
-              <TableCell align="right">
+              <StyledTableCell align="right">
                 {Number(row.score).toFixed(2)}
-              </TableCell>
-            </TableRow>
+              </StyledTableCell>
+            </StyledTableRow>
           ))}
         </TableBody>
       </Table>
